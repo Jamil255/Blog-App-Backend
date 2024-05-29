@@ -1,5 +1,5 @@
 import mongoose, { model } from 'mongoose'
-import crypto from 'crypto'
+import crypto, { createHmac, randomBytes } from 'crypto'
 
 const userSchema = new mongoose.Schema({
   fullName: {
@@ -15,10 +15,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  salt: {
-    type: String,
-    require: true,
-  },
   role: {
     type: String,
     enum: ['USER', 'ADMIN'],
@@ -30,17 +26,14 @@ const userSchema = new mongoose.Schema({
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTywtViW41dOvXafbeIcql2cxqstpFck0ZAEFYwQi-SwQ&s',
   },
 })
-
 userSchema.pre('save', function (next) {
   const user = this
-  if (!user.isModified('password')) return
-  const salt = randomBytes(16).toString()
-  const hashPassword = createHmac('sha256', salt)
+  const hashPass = createHmac('sha256', process.env.SALT_KEY)
     .update(user.password)
     .digest('hex')
+  this.password = hashPass
   next()
 })
-
 const userModel = mongoose.model('user', userSchema)
 
 export default userModel
