@@ -74,9 +74,9 @@ export const signInFun = async (req, res) => {
       })
     }
     const token = await createJwtToken(user)
-    res.cookie('token', token).redirect('/')
+    return res.cookie('token', token).redirect('/')
   } catch (error) {
-    res.json({
+    return res.json({
       message: error.message,
       data: [],
       status: false,

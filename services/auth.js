@@ -1,6 +1,4 @@
-import { localsName } from 'ejs'
 import jwt from 'jsonwebtoken'
-
 export const createJwtToken = async (user) => {
   const payload = {
     _id: user._id,
@@ -14,6 +12,6 @@ export const createJwtToken = async (user) => {
 }
 
 export const validateToken = (token) => {
-  const payload = jwt.verify(token, SECRET_KEY)
+  const payload = jwt.verify(token, process.env.SECRET_KEY)
   return payload
 }
