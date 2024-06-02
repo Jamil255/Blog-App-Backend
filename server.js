@@ -14,7 +14,7 @@ app.set('views', path.resolve('./views'))
 app.use(cookieParser())
 app.use(routes)
 
-app.get('/',authMiddleware, async (req, res) => {
+app.get('/', authMiddleware, async (req, res) => {
   res.render('home', {
     user: req.user,
   })

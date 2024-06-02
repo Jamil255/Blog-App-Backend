@@ -5,6 +5,7 @@ export const authMiddleware = async (req, res, next) => {
 
   try {
     const isVerify = jwt.verify(token, process.env.SECRET_KEY)
+    req.user = isVerify
     if (isVerify) {
       next()
     }
