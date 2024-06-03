@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs') %>
+        <title>Add Post</title>
+</head>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #343a40;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        color: #495057;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control,
+    .form-control-file {
+        border-radius: 10px;
+    }
+
+    .form-control {
+        border: 1px solid #ced4da;
+        padding: 0.75rem 1rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 10px;
+        padding: 0.5rem 2rem;
+        font-size: 1rem;
+        margin-top: 1rem;
+    }
+</style>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+        <div>
+            <div class="container mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Blog Post</h5>
+                        <form action="/api/post" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="blogTitle">Title</label>
+                                <input type="text" class="form-control" id="title" name="title"
+                                    placeholder="Enter the title">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="blogContent">Content</label>
+                                <textarea class="form-control" id="body" name="name" rows="5"
+                                    placeholder="Write your blog content here..."></textarea>
+                            </div>
+                            <div class="form-group mt-3 ">
+                                <label for="blogImage">Upload Image</label>
+                                <input type="file" class="form-control-file" name="coverImgUrl" id="coverImgUrl">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <%- include('./partials/scripts.ejs') %>
+</body>
+
+</html>
