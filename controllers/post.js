@@ -35,9 +35,13 @@ export const handleBlogPost = async (req, res) => {
 export const getBlogPage = async (req, res) => {
   try {
     const blog = await blogModel.findById(req.params.id).populate('createdBy')
+    const comment = await CommentModel.find({ blogId: req.params.id }).populate(
+      'createdBy'
+    )
     return res.render('blog', {
       user: req.user,
       blog,
+      comment,
     })
   } catch (error) {
     res.json({
@@ -48,12 +52,15 @@ export const getBlogPage = async (req, res) => {
 
 export const handlerCommentFun = async (req, res) => {
   try {
+    console.log(req?.user?._id)
     await CommentModel.create({
       content: req.body.content,
       blogId: req.params.blogId,
-      createdBy: req.user._id,
+      createdBy: req.user?._id,
     })
+    res.redirect(`/blog/${req.params.blogId}`)
   } catch (error) {
+    console.log(error.message)
     res.json({
       error: error.message,
     })

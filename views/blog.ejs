@@ -26,13 +26,28 @@
 
 
         <div class="container mt-4">
-            <h1>Comments</h1>
-            <form action="/api/login" method="post">
+            <h1>Comments( <%= comment.length %>)
+            </h1>
+            <% if (locals.user) { %>
+                <form action="/api/comment/<%= blog._id %>" method="post">
 
-                <div class="mb-3 mt-4">
-                    <input type="text" class="form-control" name="content" id="content" aria-describedby="content" placeholder="enter your comment..">
-                    <button  type="submit" class="btn btn-primary mt-3">Add</button>
-                </div>
+                    <div class="mb-3 mt-4">
+                        <input type="text" class="form-control" name="content" id="content" aria-describedby="content"
+                            placeholder="enter your comment..">
+                        <button type="submit" class="btn btn-primary mt-3">Add</button>
+                    </div>
+                </form>
+                <% } %>
+                    <div class="mt-3">
+                        <% comment.forEach(comment=> { %>
+                            <img src="<%= comment?.createdBy.profileImageUrl %>" width="50px">
+                            <%= comment?.createdBy.fullName %>
+                                <h6>
+                                    <%= comment?.content %>
+                                </h6>
+                                <% }) %>
+
+                    </div>
         </div>
         <%- include('./partials/scripts.ejs') %>
 </body>

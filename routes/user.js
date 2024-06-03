@@ -11,7 +11,7 @@ import { getHomePage } from '../controllers/home.js'
 const routes = express.Router()
 
 // get api
-routes.get('/', authMiddleware, getHomePage)
+routes.get('/', authMiddleware,getHomePage)
 routes.get('/api/signup', signUphandler)
 routes.get('/api/login', signInhandler)
 // auth api

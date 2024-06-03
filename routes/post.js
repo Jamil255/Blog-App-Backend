@@ -11,7 +11,7 @@ const route = express.Router()
 
 route.get('/api/blog', authMiddleware, getPostPage)
 route.get('/blog/:id', authMiddleware, getBlogPage)
-route.post('/api/comment/:blogId',handlerCommentFun)
+route.post('/api/comment/:blogId', authMiddleware, handlerCommentFun)
 route.post(
   '/api/post',
   [authMiddleware, upload.single('coverImgUrl')],
