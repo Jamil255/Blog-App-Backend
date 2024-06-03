@@ -17,12 +17,6 @@ app.use(cookieParser())
 cloudinaryConfig()
 app.use(routes)
 app.use(route)
-
-app.get('/', authMiddleware, async (req, res) => {
-  res.render('home', {
-    user: req.user,
-  })
-})
 app.listen(PORT, (req, res) => {
   console.log(`listening on ${PORT}`)
 })

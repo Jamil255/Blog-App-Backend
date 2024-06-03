@@ -6,9 +6,12 @@ import {
   signUphandler,
 } from '../controllers/auth.js'
 import { logOutHandler } from '../controllers/logOutHandler.js'
+import { authMiddleware } from '../middlewares/authMiddleware.js'
+import { getHomePage } from '../controllers/home.js'
 const routes = express.Router()
 
-// get api 
+// get api
+routes.get('/', authMiddleware, getHomePage)
 routes.get('/api/signup', signUphandler)
 routes.get('/api/login', signInhandler)
 // auth api
@@ -16,5 +19,5 @@ routes.post('/api/signup', signUpFun)
 routes.post('/api/login', signInFun)
 // logout api
 
-routes.get("/api/logout",logOutHandler)
+routes.get('/api/logout', logOutHandler)
 export default routes
