@@ -1,4 +1,5 @@
 import { cloudinaryUploader } from '../config/cloudinaryConfig.js'
+import CommentModel from '../models/commentSchema.js'
 import blogModel from '../models/postSchema.js'
 import fs from 'fs'
 
@@ -28,5 +29,33 @@ export const handleBlogPost = async (req, res) => {
   } catch (error) {
     console.log(error.message)
     return res.status(500).render('/')
+  }
+}
+
+export const getBlogPage = async (req, res) => {
+  try {
+    const blog = await blogModel.findById(req.params.id).populate('createdBy')
+    return res.render('blog', {
+      user: req.user,
+      blog,
+    })
+  } catch (error) {
+    res.json({
+      error: error.message,
+    })
+  }
+}
+
+export const handlerCommentFun = async (req, res) => {
+  try {
+    await CommentModel.create({
+      content: req.body.content,
+      blogId: req.params.blogId,
+      createdBy: req.user._id,
+    })
+  } catch (error) {
+    res.json({
+      error: error.message,
+    })
   }
 }
